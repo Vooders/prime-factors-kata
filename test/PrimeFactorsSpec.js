@@ -55,9 +55,8 @@ describe('MyClass', () => {
   verify.it('should work for any random input', Gen.array(Gen.integerBetween(2000, 20000), 20), (testArray) => {
     const primeFactors = new PrimeFactors()
     testArray.forEach((n) => {
-      console.log(`factoring ${n}`)
       const factors = primeFactors.generate(n)
-      checkPrimes(factors).length.should.eql(0)
+      nonPrimes(factors).should.eql(0)
       multiply(factors).should.eql(n)
     })
   })
@@ -66,8 +65,8 @@ describe('MyClass', () => {
     return factors.reduce((total, factor) => factor * total)
   }
 
-  const checkPrimes = (factors) => {
-    return factors.filter((factor) => !isPrime(factor))
+  const nonPrimes = (factors) => {
+    return factors.filter((factor) => !isPrime(factor)).length
   }
 
   const isPrime = (num) => {
